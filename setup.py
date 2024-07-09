@@ -11,12 +11,12 @@ def get_long_description():
         return readme_file.read()
 
 
-def get_project_version():
-    version_path = os.path.join(base_dir, "faster_whisper", "version.py")
-    version = {}
-    with open(version_path, encoding="utf-8") as fp:
-        exec(fp.read(), version)
-    return version["__version__"]
+# def get_project_version():
+#     version_path = os.path.join(base_dir, "faster_whisper", "version.py")
+#     version = {}
+#     with open(version_path, encoding="utf-8") as fp:
+#         exec(fp.read(), version)
+#     return version["__version__"]
 
 
 def get_requirements(path):
@@ -30,14 +30,14 @@ conversion_requires = get_requirements(
 )
 
 setup(
-    name="faster-whisper",
-    version=get_project_version(),
+    name="faster-whisper-greenw0lf",
+    version="0.0.1",
     license="MIT",
     description="Faster Whisper transcription with CTranslate2",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
-    author="Guillaume Klein",
-    url="https://github.com/SYSTRAN/faster-whisper",
+    author="Dragos Balan",
+    url="https://github.com/greenw0lf/faster-whisper",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",

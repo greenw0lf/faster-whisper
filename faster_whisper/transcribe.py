@@ -500,7 +500,7 @@ class WhisperModel:
         tokenizer: Tokenizer,
         options: TranscriptionOptions,
         encoder_output: Optional[ctranslate2.StorageView] = None,
-    ) -> Iterable[Segment]:
+    ) -> List[Segment]:
         content_frames = features.shape[-1] - self.feature_extractor.nb_max_frames
         content_duration = float(content_frames * self.feature_extractor.time_per_frame)
 
@@ -789,6 +789,8 @@ class WhisperModel:
                 if last_word_end is not None:
                     last_speech_timestamp = last_word_end
 
+            segments = []
+
             for segment in current_segments:
                 tokens = segment["tokens"]
                 text = tokenizer.decode(tokens)
@@ -799,7 +801,7 @@ class WhisperModel:
                 all_tokens.extend(tokens)
                 idx += 1
 
-                yield Segment(
+                segments.append(Segment(
                     id=idx,
                     seek=seek,
                     start=segment["start"],
@@ -815,7 +817,7 @@ class WhisperModel:
                         if options.word_timestamps
                         else None
                     ),
-                )
+                ))
 
             if (
                 not options.condition_on_previous_text
@@ -829,6 +831,8 @@ class WhisperModel:
                     )
 
                 prompt_reset_since = len(all_tokens)
+            
+            return segments
 
     def encode(self, features: np.ndarray) -> ctranslate2.StorageView:
         # When the model is running on multiple GPUs, the encoder output should be moved
