@@ -1190,9 +1190,10 @@ def restore_speech_timestamps(
     segments: Iterable[Segment],
     speech_chunks: List[dict],
     sampling_rate: int,
-) -> Iterable[Segment]:
+) -> List[Segment]:
     ts_map = SpeechTimestampsMap(speech_chunks, sampling_rate)
 
+    segments = []
     for segment in segments:
         if segment.words:
             words = []
@@ -1218,7 +1219,9 @@ def restore_speech_timestamps(
                 end=ts_map.get_original_time(segment.end),
             )
 
-        yield segment
+        segments.append(segment)
+    
+    return segments
 
 
 def get_ctranslate2_storage(segment: np.ndarray) -> ctranslate2.StorageView:
