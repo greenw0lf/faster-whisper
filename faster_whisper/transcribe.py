@@ -1187,7 +1187,7 @@ class WhisperModel:
 
 
 def restore_speech_timestamps(
-    segments: Iterable[Segment],
+    segments: List[Segment],
     speech_chunks: List[dict],
     sampling_rate: int,
 ) -> List[Segment]:
