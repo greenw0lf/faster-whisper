@@ -240,7 +240,7 @@ class WhisperModel:
         hotwords: Optional[str] = None,
         language_detection_threshold: Optional[float] = None,
         language_detection_segments: int = 1,
-    ) -> Tuple[Iterable[Segment], TranscriptionInfo]:
+    ) -> Tuple[List[Segment], TranscriptionInfo]:
         """Transcribes an input file.
 
         Arguments:

@@ -31,7 +31,7 @@ conversion_requires = get_requirements(
 
 setup(
     name="faster-whisper-greenw0lf",
-    version="0.0.1",
+    version="0.0.2",
     license="MIT",
     description="Faster Whisper transcription with CTranslate2",
     long_description=get_long_description(),
