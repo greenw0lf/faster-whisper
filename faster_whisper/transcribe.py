@@ -542,6 +542,8 @@ class WhisperModel:
             else:
                 all_tokens.extend(options.initial_prompt)
 
+        segments = []
+
         last_speech_timestamp = 0.0
         # NOTE: This loop is obscurely flattened to make the diff readable.
         # A later commit should turn this into a simpler nested loop.
@@ -789,8 +791,6 @@ class WhisperModel:
                 if last_word_end is not None:
                     last_speech_timestamp = last_word_end
 
-            segments = []
-
             for segment in current_segments:
                 tokens = segment["tokens"]
                 text = tokenizer.decode(tokens)
@@ -831,8 +831,8 @@ class WhisperModel:
                     )
 
                 prompt_reset_since = len(all_tokens)
-            
-            return segments
+
+        return segments
 
     def encode(self, features: np.ndarray) -> ctranslate2.StorageView:
         # When the model is running on multiple GPUs, the encoder output should be moved
@@ -1220,7 +1220,7 @@ def restore_speech_timestamps(
             )
 
         segments.append(segment)
-    
+
     return segments
 
 
